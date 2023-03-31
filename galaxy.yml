@@ -1,0 +1,28 @@
+---
+
+namespace: 'ansibleguy'
+name: 'linuxha'
+version: 1.0.0
+readme: 'README.md'
+authors:
+  - 'AnsibleGuy <guy@ansibleguy.net>'
+description: "Ansible Modules to manage LinuxHA/CoroSyn"
+license_file: 'LICENSE.txt'
+tags:
+  - 'highavailability'
+  - 'availability'
+  - 'ha'
+  - 'cluster'
+  - 'clustering'
+  - 'linuxha'
+  - 'linux'
+  - 'corosync'
+  - 'crmsh'
+  - 'pacemaker'
+  - 'failover'
+dependencies: {}
+repository: 'https://github.com/ansibleguy/collection_linuxha'
+documentation: 'https://linuxha.ansibleguy.net'
+homepage: 'https://ansibleguy.net'
+issues: 'https://github.com/ansibleguy/collection_linuxha/issues'
+build_ignore: []
