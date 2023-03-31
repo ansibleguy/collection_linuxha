@@ -3,7 +3,7 @@
 [![Functional Test Status](https://badges.ansibleguy.net/linuxha.collection.test.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/test.sh)
 [![Lint Test Status](https://badges.ansibleguy.net/linuxha.collection.lint.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/lint.sh)
 [![Docs](https://readthedocs.org/projects/linuxha_ansible/badge/?version=latest&style=flat)](https://linuxha.ansibleguy.net)
-[![Ansible Galaxy](https://img.shields.io/ansible/collection/2148)](https://galaxy.ansible.com/ansibleguy/linuxha)
+<!--[![Ansible Galaxy](https://img.shields.io/ansible/collection/2148)](https://galaxy.ansible.com/ansibleguy/linuxha)-->
 
 ----
 
@@ -26,6 +26,10 @@ Feel free to contribute to this project using [pull-requests](https://github.com
 You will have to install the LinuxHA packages on the target server:
 * [LinuxHA](https://wiki.clusterlabs.org/wiki/Install) ([corosync](https://github.com/corosync/corosync) and [pacemaker](https://github.com/ClusterLabs/pacemaker))
 * [crm-shell](https://github.com/ClusterLabs/crmsh) (_alternative support for 'pcs' might be added later on_)
+
+After that - configure the basic cluster using the '[corosync.conf](https://linux.die.net/man/5/corosync.conf)' file.
+
+Example config: [documentation](https://linuxha.ansibleguy.net/en/latest/usage/config.html)
 
 Then - install the collection itself:
 
@@ -64,6 +68,10 @@ not implemented => development => [testing](https://github.com/ansibleguy/collec
 
 ### Roadmap
 
+- Status
+  - Current config
+  - Cluster status
+  - Cluster health
 - Actions
   - [Resource Actions](https://crmsh.github.io/man-2.0/#cmdhelp_resource)
   - [Node Actions](https://crmsh.github.io/man-2.0/#cmdhelp_node)

@@ -6,7 +6,7 @@ version: 1.0.0
 readme: 'README.md'
 authors:
   - 'AnsibleGuy <guy@ansibleguy.net>'
-description: "Ansible Modules to manage LinuxHA/CoroSyn"
+description: "Ansible Modules to manage LinuxHA/CoroSync"
 license_file: 'LICENSE.txt'
 tags:
   - 'highavailability'
