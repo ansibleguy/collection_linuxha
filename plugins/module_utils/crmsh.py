@@ -45,7 +45,7 @@ def _build_cmd(m: AnsibleModule, args: list) -> list:
         'force': ['--force', '-F'],
         'wait': ['--wait', '-w'],
     }.items():
-        if m.params[param] and all([arg not in cmd for arg in check_args]):
+        if m.params[param] and all(arg not in cmd for arg in check_args):
             cmd.append(check_args[0])
 
     return cmd
@@ -59,7 +59,7 @@ def _check_become(m: AnsibleModule) -> None:
 
 
 def _error_handling(m: AnsibleModule, r: dict, fail: bool, cmd: list) -> None:
-    error = r['stderr']
+    error = None
 
     if r['stderr'].find('Could not connect to the CIB') != -1:
         error = 'CoroSync and/or Pacemaker seem to have problems communicating! ' \
@@ -79,7 +79,11 @@ def _error_handling(m: AnsibleModule, r: dict, fail: bool, cmd: list) -> None:
                 if rc_pm != 0:
                     error = "Service 'pacemaker.service' not running!"
 
-    msg = f"GOT ERROR RUNNING COMMAND '{' '.join(cmd)}'!"
+    msg = f"GOT ERROR RUNNING COMMAND '{' '.join(cmd)}'"
+
+    if error is not None:
+        msg += f": '{error}'"
+
     if fail:
         r['rc'], r['error'] = 1, msg
 
