@@ -1,0 +1,11 @@
+---
+
+all:
+  hosts:
+    node1:
+    node2:
+  children:
+    linuxha:
+      hosts:
+        node1:
+        node2:
