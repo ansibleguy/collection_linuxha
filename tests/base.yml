@@ -57,7 +57,7 @@
       register: lha_fail1
       failed_when: >
         not lha_fail1.failed or
-        "You need to set 'become: true'" not in lha_fail1.stderr
+        "You need to set 'become: true'" not in lha_fail1.msg
 
     - name: Working status-command
       ansibleguy.linuxha.raw:

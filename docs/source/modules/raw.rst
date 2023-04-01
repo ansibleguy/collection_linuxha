@@ -46,7 +46,7 @@ Examples
       tasks:
         - name: Example
           ansibleguy.linuxha.raw:
-            cmd: 'present'
+            cmd: 'to execute'
             # fail: true  # Fail module if command fails
             # force: false
             # wait: false
