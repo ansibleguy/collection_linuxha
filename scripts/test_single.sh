@@ -10,6 +10,7 @@ TMP_COL_DIR="$TMP_DIR/collections"
 
 export ANSIBLE_INVENTORY_UNPARSED_WARNING=False
 export ANSIBLE_LOCALHOST_WARNING=False
+export ANSIBLE_HOST_KEY_CHECKING=False
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ] || [ -z "$5" ]
 then
