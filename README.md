@@ -25,7 +25,7 @@ Feel free to contribute to this project using [pull-requests](https://github.com
 
 You will have to install the LinuxHA packages on the target server:
 * [LinuxHA](https://wiki.clusterlabs.org/wiki/Install) ([corosync](https://github.com/corosync/corosync) and [pacemaker](https://github.com/ClusterLabs/pacemaker))
-* [crm-shell](https://github.com/ClusterLabs/crmsh) (_alternative support for 'pcs' might be added later on_)
+* [crm-shell](https://github.com/ClusterLabs/crmsh)
 
 After that - configure the basic cluster using the '[corosync.conf](https://linux.die.net/man/5/corosync.conf)' file.
 
@@ -62,9 +62,9 @@ not implemented => development => [testing](https://github.com/ansibleguy/collec
 ### Implemented
 
 
-| Function            | Module | Usage                                                                | State       |
-|:--------------------|:-------|:---------------------------------------------------------------------|:------------|
-| **Base**            | -      | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/) | development |
+| Function            | Module                 | Usage                                                             | State   |
+|:--------------------|:-----------------------|:------------------------------------------------------------------|:--------|
+| **Base**            | ansibleguy.linuxha.raw | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/raw.html) | testing |
 
 ### Roadmap
 

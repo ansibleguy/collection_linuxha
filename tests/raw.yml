@@ -1,0 +1,139 @@
+---
+
+- name: Testing raw commands
+  hosts: node1
+  gather_facts: no
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  vars:
+    cmd_test1: 'configure primitive test1 IPaddr2 params ip=127.100.1.1 nic=lo'
+
+  tasks:
+    - name: Running invalid command
+      ansibleguy.linuxha.raw:
+        cmd: ['non-existent']
+      register: lha_fail1
+      failed_when: >
+        not lha_fail1.failed or
+        'No such command' not in lha_fail1.stderr
+      when: not ansible_check_mode  # server-side validation
+
+    - name: Stopping resource - does not exist
+      ansibleguy.linuxha.raw:
+        cmd: 'resource stop test1'
+      register: lha_fail2
+      failed_when: >
+        not lha_fail2.failed or
+        'Resource not found' not in lha_fail2.stderr
+      when: not ansible_check_mode  # server-side validation
+
+    - name: Deleting resource - does not exist
+      ansibleguy.linuxha.raw:
+        cmd: 'configure delete test1'
+      register: lha_fail3
+      failed_when: >
+        not lha_fail3.failed or
+        'does not exist' not in lha_fail3.stderr
+      when: not ansible_check_mode  # server-side validation
+
+    - name: Running status command
+      ansibleguy.linuxha.raw:
+        cmd: 'status'
+      register: lha1
+
+    - name: Checking execution
+      ansible.builtin.assert:
+        that:
+          - ansible_check_mode or lha1.changed
+          - "'rc' in lha1"
+          - lha1.rc == 0
+          - "'stdout' in lha1"
+          - "'stdout_lines' in lha1"
+          - ansible_check_mode or lha1.stdout_lines | length > 1
+          - "'stderr' in lha1"
+          - lha1.stderr == ''
+          - "'stderr_lines' in lha1"
+          - lha1.stderr_lines | length == 0
+
+    - name: Enabling stonith
+      ansibleguy.linuxha.raw:
+        cmd: 'configure property stonith-enabled=true'
+      when: not ansible_check_mode
+
+    - name: Running configure-show command
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+      register: lha2
+      when: not ansible_check_mode
+
+    - name: Checking stonith status
+      ansible.builtin.assert:
+        that:
+          - "'stonith-enabled=true' in lha2.stdout"
+      when: not ansible_check_mode
+
+    - name: Adding IP - will fail because of stonith
+      ansibleguy.linuxha.raw:
+        cmd: "{{ cmd_test1 }}"
+      register: lha3
+      failed_when: >
+        not lha3.failed or
+        'no STONITH resources have been defined' not in lha3.stderr
+      when: not ansible_check_mode
+
+    - name: Disabling stonith
+      ansibleguy.linuxha.raw:
+        cmd: 'configure property stonith-enabled=false'
+      when: not ansible_check_mode
+
+    - name: Running configure-show command
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+      register: lha4
+      when: not ansible_check_mode
+
+    - name: Checking stonith status
+      ansible.builtin.assert:
+        that:
+          - "'stonith-enabled=false' in lha4.stdout"
+      when: not ansible_check_mode
+
+    - name: Adding IP
+      ansibleguy.linuxha.raw:
+        cmd: "{{ cmd_test1 }}"
+      register: lha5
+      failed_when: >
+        lha5.failed or
+        'Blind faith' not in lha5.stderr
+      when: not ansible_check_mode
+
+    - name: Deleting resource - still running
+      ansibleguy.linuxha.raw:
+        cmd: 'configure delete test1'
+      register: lha_fail4
+      failed_when: >
+        not lha_fail4.failed or
+        "is running, can't delete it" not in lha_fail4.stderr
+      when: not ansible_check_mode  # server-side validation
+
+    - name: Stopping resource
+      ansibleguy.linuxha.raw:
+        cmd: 'resource stop test1'
+      when: not ansible_check_mode
+
+    - name: Removing IP
+      ansibleguy.linuxha.raw:
+        cmd: 'configure delete test1'
+      when: not ansible_check_mode
+
+    - name: Checking cleanup
+      ansibleguy.linuxha.raw:
+        cmd: 'status'
+      register: cleanup_check
+      failed_when: >
+        cleanup_check.failed or
+        '0 resource instances configured' not in cleanup_check.stdout or
+        '* No resources' not in cleanup_check.stdout
+      when: not ansible_check_mode
