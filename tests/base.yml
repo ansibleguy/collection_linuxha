@@ -83,4 +83,3 @@
           - "'0 resource instances configured' in lha1.stdout"
           - "'Online: [ node1 node2 ]' in lha1.stdout"
           - "'* No resources' in lha1.stdout"
-
