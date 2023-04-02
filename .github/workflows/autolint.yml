@@ -48,7 +48,5 @@ jobs:
         shell: bash
 
       - name: Running AnsibleLint
-        run: |
-          ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_lint/collections
-          ansible-lint -c .ansible-lint.yml
+        run: ANSIBLE_COLLECTIONS_PATH=/tmp/ansible_lint/collections ansible-lint -c .ansible-lint.yml
         shell: bash
