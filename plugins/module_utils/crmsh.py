@@ -5,15 +5,13 @@ from os import geteuid
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import exit_bug
+from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import exit_bug, debug
 
 DEFAULT_BIN = '/usr/sbin/crm'
 
 
 def _run_cmd_wrapper(m: AnsibleModule, cmd: list, stdin: str = None) -> tuple:
-    if m.params['debug']:
-        m.warn(f"Executing command: '{cmd}'")
-
+    debug(m=m, msg=f"Executing command: '{' '.join(cmd)}'")
     return m.run_command(cmd, data=stdin)
 
 
@@ -38,16 +36,16 @@ def _build_cmd(m: AnsibleModule, args: list) -> list:
         )
 
     cmd = [cmd_bin]
-    cmd.extend(args)
 
     for param, check_args in {
         'debug': ['--debug', '-d'],
         'force': ['--force', '-F'],
         'wait': ['--wait', '-w'],
     }.items():
-        if m.params[param] and all(arg not in cmd for arg in check_args):
+        if m.params[param] and all(arg not in args for arg in check_args):
             cmd.append(check_args[0])
 
+    cmd.extend(args)
     return cmd
 
 

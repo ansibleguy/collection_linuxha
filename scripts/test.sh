@@ -5,11 +5,6 @@ set -eo pipefail
 echo ''
 
 DEBUG=false
-TMP_DIR="/tmp/.linuxha_test_$(date +%s)"
-TMP_COL_DIR="$TMP_DIR/collections"
-
-export ANSIBLE_INVENTORY_UNPARSED_WARNING=False
-export ANSIBLE_LOCALHOST_WARNING=False
 export ANSIBLE_HOST_KEY_CHECKING=False
 
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]
@@ -44,14 +39,13 @@ fi
 
 source "$(dirname "$0")/test_prep.sh"  # shared between single/multi test
 
-cd "$TMP_COL_DIR/ansible_collections/ansibleguy/linuxha"
-
 echo ''
 echo '##############################'
 echo 'STARTING TESTS!'
 echo '##############################'
 echo ''
 
+run_test '_testenv' 0
 run_test 'base' 0
 run_test 'raw' 1
 

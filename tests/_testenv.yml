@@ -1,0 +1,45 @@
+---
+
+- name: Checking for test-prerequisites (see tests/Readme.md)
+  hosts: linuxha
+  gather_facts: false
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  tasks:
+    - name: Checking that packages are installed
+      ansible.builtin.package:
+        name: ['corosync', 'pacemaker', 'crmsh']
+        state: 'present'
+      check_mode: true
+      register: lha_host_svcs
+      failed_when: lha_host_svcs.changed
+
+    - name: Checking if services are running
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+      check_mode: true
+      loop:
+        - 'pacemaker'
+        - 'corosync'
+      register: lha_host_pkgs
+      failed_when: lha_host_pkgs.changed
+
+    - name: Pulling cluster-name from corosync.conf
+      ansible.builtin.shell: "cat /etc/corosync/corosync.conf | grep 'cluster_name:'"
+      changed_when: false
+      register: lha_host_cs_cnf_cluster
+      failed_when: "'cluster_name: linuxha' not in lha_host_cs_cnf_cluster.stdout"
+
+    - name: Pulling nodelist from corosync.conf
+      ansible.builtin.shell: "cat /etc/corosync/corosync.conf | grep 'nodelist' -A 50"
+      changed_when: false
+      register: lha_host_cs_cnf_nodes
+
+    - name: Checking corosync-config
+      ansible.builtin.assert:
+        that:
+          - "'name: node1' in lha_host_cs_cnf_nodes.stdout"
+          - "'name: node2' in lha_host_cs_cnf_nodes.stdout"

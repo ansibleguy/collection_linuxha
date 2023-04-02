@@ -1,51 +1,7 @@
 ---
 
-- name: Checking for test-prerequisites (see tests/Readme.md)
-  hosts: linuxha
-  gather_facts: false
-  become: true
-  vars_files:
-    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
-
-  tasks:
-    - name: Checking that packages are installed
-      ansible.builtin.package:
-        name: ['corosync', 'pacemaker', 'crmsh']
-        state: 'present'
-      check_mode: true
-      register: lha_host_svcs
-      failed_when: lha_host_svcs.changed
-
-    - name: Checking if services are running
-      ansible.builtin.service:
-        name: "{{ item }}"
-        state: started
-      check_mode: true
-      loop:
-        - 'pacemaker'
-        - 'corosync'
-      register: lha_host_pkgs
-      failed_when: lha_host_pkgs.changed
-
-    - name: Pulling cluster-name from corosync.conf
-      ansible.builtin.shell: "cat /etc/corosync/corosync.conf | grep 'cluster_name:'"
-      changed_when: false
-      register: lha_host_cs_cnf_cluster
-      failed_when: "'cluster_name: linuxha' not in lha_host_cs_cnf_cluster.stdout"
-
-    - name: Pulling nodelist from corosync.conf
-      ansible.builtin.shell: "cat /etc/corosync/corosync.conf | grep 'nodelist' -A 50"
-      changed_when: false
-      register: lha_host_cs_cnf_nodes
-
-    - name: Checking corosync-config
-      ansible.builtin.assert:
-        that:
-          - "'name: node1' in lha_host_cs_cnf_nodes.stdout"
-          - "'name: node2' in lha_host_cs_cnf_nodes.stdout"
-
-- name: Testing basic functionalities
-  hosts: linuxha
+- name: Testing basic failures
+  hosts: node1
   gather_facts: false
   vars_files:
     - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
@@ -59,11 +15,18 @@
         not lha_fail1.failed or
         "You need to set 'become: true'" not in lha_fail1.msg
 
+- name: Testing basic functionalities
+  hosts: node1
+  gather_facts: false
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  tasks:
     - name: Working status-command
       ansibleguy.linuxha.raw:
         cmd: 'status'
       register: lha1
-      become: true
 
     - name: Checking basic return values
       ansible.builtin.assert:
@@ -83,3 +46,55 @@
           - "'0 resource instances configured' in lha1.stdout"
           - "'Online: [ node1 node2 ]' in lha1.stdout"
           - "'* No resources' in lha1.stdout"
+
+    - name: Testing force-argument
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+        force: true
+      register: lha2
+
+    - name: Testing debug-argument
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+        debug: true
+      register: lha3
+      failed_when: >
+        lha3.failed or
+        'DEBUG:' not in lha3.stderr or
+        'warnings' not in lha3 or
+        lha3.warnings | length != 1 or
+        lha3.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug configure show'"
+
+    - name: Testing wait-argument
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+        wait: true
+      register: lha4
+
+    - name: Testing all argument
+      ansibleguy.linuxha.raw:
+        cmd: 'configure show'
+        wait: true
+        force: true
+        debug: true
+      register: lha5
+      failed_when: >
+        lha5.failed or
+        'DEBUG:' not in lha5.stderr or
+        'warnings' not in lha5 or
+        lha5.warnings | length != 1 or
+        lha5.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug --force --wait configure show'"
+
+    - name: Testing all argument - also supplied as arguments
+      ansibleguy.linuxha.raw:
+        cmd: '--wait --debug configure show'
+        wait: true
+        force: true
+        debug: true
+      register: lha6
+      failed_when: >
+        lha6.failed or
+        'DEBUG:' not in lha6.stderr or
+        'warnings' not in lha6 or
+        lha6.warnings | length != 1 or
+        lha6.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --force --wait --debug configure show'"

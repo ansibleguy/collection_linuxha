@@ -15,3 +15,8 @@ def exit_env(m: AnsibleModule, msg: str):
 
 def exit_cnf(m: AnsibleModule, msg: str):
     m.fail_json(f"CONFIG ERROR: {msg}")
+
+
+def debug(m: AnsibleModule, msg: str):
+    if m.params['debug']:
+        m.warn(f"DEBUG: {msg}")

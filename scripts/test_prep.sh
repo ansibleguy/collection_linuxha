@@ -2,6 +2,12 @@
 
 set -u
 
+TMP_DIR="/tmp/.linuxha_test_$(date +%s)"
+TMP_COL_DIR="$TMP_DIR/collections"
+TMP_COL_DIR2="$TMP_COL_DIR/ansible_collections/ansibleguy/linuxha"
+TMP_HOST_VARS="$TMP_COL_DIR2/tests/inv/host_vars"
+TMPL_HOST_VARS="---\n\nansible_host:"
+
 mkdir -p "$TMP_COL_DIR"
 cd "$TMP_DIR"
 export ANSIBLE_COLLECTIONS_PATH="$TMP_COL_DIR"
@@ -21,6 +27,9 @@ else
   fi
 fi
 
+echo -e "$TMPL_HOST_VARS '$TEST_NODE1'" > "$TMP_HOST_VARS/node1.yml"
+echo -e "$TMPL_HOST_VARS '$TEST_NODE2'" > "$TMP_HOST_VARS/node2.yml"
+
 function run_test() {
   module="$1"
   check_mode="$2"
@@ -30,11 +39,11 @@ function run_test() {
   echo "RUNNING TESTS of module: '$module'"
   echo ''
 
-  ansible-playbook "tests/$module.yml" -i tests/_inventory.yml -e ansible_host="$TEST_NODE1" --limit node1 $VERBOSITY
-  ansible-playbook "tests/$module.yml" -i tests/_inventory.yml -e ansible_host="$TEST_NODE2" --limit node2 $VERBOSITY
+  ansible-playbook "tests/$module.yml" -i tests/inv/hosts.yml $VERBOSITY
   if [[ "$check_mode" == '1' ]]
   then
-    ansible-playbook "tests/$module.yml" -i tests/_inventory.yml -e ansible_host="$TEST_NODE1" --limit node1 --check $VERBOSITY
-    ansible-playbook "tests/$module.yml" -i tests/_inventory.yml -e ansible_host="$TEST_NODE2" --limit node2 --check $VERBOSITY
+    ansible-playbook "tests/$module.yml" -i tests/inv/hosts.yml --check $VERBOSITY
   fi
 }
+
+cd "$TMP_COL_DIR2"

@@ -30,4 +30,4 @@ CHECK_MODE=1  # additionally execute test-playbooks in check-mode
 bash "${COL_PATH}/scripts/test_single.sh" "$TEST_NODE1" "$TEST_NODE2" "$TEST_SECRETS" "$COL_PATH" "$TEST" "$CHECK_MODE"
 ```
 
-If you run into any errors - run the 'base' tests! They will check your test-environment for basic config-errors!
+If you run into any errors - run the '_testenv.yml' tests! They will check your test-environment for basic config-errors!
