@@ -426,6 +426,8 @@ disable=raw-checker-failed,
         C0103,  # var-naming
         E0401, E0611,  # unable to import ansible-modules
         R1735,  # ansible-style dict-formatting
+        R0801,  # similar code because of module-syntax
+        W0511,  # todo's
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

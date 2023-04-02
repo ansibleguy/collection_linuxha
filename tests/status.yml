@@ -31,10 +31,12 @@
     - name: Creating dummy resource
       ansibleguy.linuxha.raw:
         cmd: "configure primitive {{ test_res }} IPaddr2 params ip=127.100.1.2 nic=lo"
+      when: not ansible_check_mode
 
     - name: Getting status
       ansibleguy.linuxha.status:
       register: lha2
+      when: not ansible_check_mode
 
     - name: Checking return 2
       ansible.builtin.assert:
@@ -46,6 +48,7 @@
           - "'class' in lha2.data['resources'][test_res]['resource']"
           - "'provider' in lha2.data['resources'][test_res]['resource']"
           - "'type' in lha2.data['resources'][test_res]['resource']"
+      when: not ansible_check_mode
 
     - name: Getting detailed status (XML)
       ansibleguy.linuxha.status:
@@ -68,3 +71,4 @@
       loop:
         - "resource stop {{ test_res }}"
         - "configure delete {{ test_res }}"
+      when: not ansible_check_mode

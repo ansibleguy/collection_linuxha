@@ -5,7 +5,7 @@ from ansible.plugins.action import ActionBase
 
 class ActionModule(ActionBase):
     def run(self, tmp=None, task_vars=None):
-        super(ActionModule, self).run(tmp, task_vars)
+        super().run(tmp, task_vars)
         result = self._execute_module(
             module_name='ansibleguy.linuxha.status',
             module_args=self._task.args,
