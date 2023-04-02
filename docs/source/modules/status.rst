@@ -2,9 +2,9 @@
 
 .. include:: ../_include/head.rst
 
-===
-Raw
-===
+======
+Status
+======
 
 **STATE**: unstable
 
@@ -19,8 +19,8 @@ Definition
     :widths: 15 10 10 10 10 45
 
     "detailed","boolean","false","false","detail", "Return a more detailed status parsed from XML output"
-    "subset","list","false","['cluster', 'nodes', 'resources', 'operations']","parse, sub", "Provide one or multiple status-subsets to parse (ignored if 'detailed: true' is set)"
-    "time_format","string","false",%Y-%m-%d %H:%M:%S',"t_fmt", "Modify the datetime format used to parse timestamps (ignored if 'detailed: true' is set)"
+    "subset","list","false","['cluster', 'nodes', 'resources', 'operations']","parse, sub", "Provide one or multiple status-subsets to parse (*ignored if 'detailed: true' is set*)"
+    "time_format","string","false",%Y-%m-%d %H:%M:%S',"t_fmt", "Modify the datetime format used to parse timestamps (*ignored if 'detailed: true' is set*)"
 
 .. include:: ../_include/param_basic.rst
 
@@ -29,7 +29,7 @@ Info
 
 Get parsed cluster-status.
 
-If 'detailed: false' (*default*) is set - the output from 'crm status full' is used.
+If 'detailed: false' (*default*) is set - the output from 'crm status full' is parsed.
 
 Else the output from 'crm status xml' is used.
 

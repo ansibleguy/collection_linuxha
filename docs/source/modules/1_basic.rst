@@ -24,5 +24,5 @@ Config/Action modules
     :header: "Parameter", "Type", "Required", "Default", "Comment"
     :widths: 15 10 10 10 55
 
-    "wait","boolean","false","false","Make crm wait for the cluster transition to finish (for the changes to take effect) after each processed line"
+    "wait","boolean","false","false","Make crm wait for the cluster transition to finish (*for the changes to take effect*) after each processed line"
     "force","boolean","false","false","Make crm proceed with applying changes where it would normally ask the user to confirm before proceeding. This option is mainly useful in scripts, and should be used with care"

@@ -19,7 +19,7 @@ Such operations include:
 
 You can achieve this easily by either:
 
-* use the 'run_once: true' parameter (dynamic)
+* use the 'run_once: true' parameter (*dynamic*)
 
   .. code-block:: yaml
 
@@ -32,7 +32,7 @@ You can achieve this easily by either:
               cmd: 'to execute'
             run_once: true
 
-* add an inventory-group of 'leader-nodes' that will be used as execution targets (static but working for multi-cluster setup)
+* add an inventory-group of 'leader-nodes' that will be used as execution targets (*static but working for multi-cluster setup*)
 
   inventory
 
