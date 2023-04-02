@@ -13,8 +13,8 @@ then
   echo ''
   exit 1
 else
-  NODE1="$1"
-  NODE2="$2"
+  TEST_NODE1="$1"
+  TEST_NODE2="$2"
 fi
 
 if [ -n "$3" ]
@@ -26,12 +26,15 @@ cd "$(dirname "$0")/.."
 rm -rf "~/.ansible/collections/ansible_collections/ansibleguy/linuxha"
 ansible-galaxy collection install git+https://github.com/ansibleguy/collection_linuxha.git
 
+TMPL_HOST_VARS="---\n\nansible_host:"
+echo -e "$TMPL_HOST_VARS '$TEST_NODE1'" > "$TMP_HOST_VARS/node1.yml"
+echo -e "$TMPL_HOST_VARS '$TEST_NODE2'" > "$TMP_HOST_VARS/node2.yml"
+
 echo ''
 echo 'RUNNING CLEANUP'
 echo ''
 
-ansible-playbook tests/cleanup.yml --extra-vars="ansible_python_interpreter=$(which python)" --limit node1 -e ansible_host="$NODE1"
-ansible-playbook tests/cleanup.yml --extra-vars="ansible_python_interpreter=$(which python)" --limit node2 -e ansible_host="$NODE2"
+ansible-playbook tests/_cleanup.yml -i tests/inv/hosts.yml $VERBOSITY
 
 rm -rf "~/.ansible/collections/ansible_collections/ansibleguy/linuxha"
 

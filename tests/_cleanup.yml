@@ -1,0 +1,26 @@
+---
+
+- name: Cleanup
+  hosts: node1
+  gather_facts: no
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  tasks:
+    - name: Stopping resources
+      ansibleguy.linuxha.raw:
+        cmd: "resource stop {{ item }}"
+        wait: true
+      loop:
+        - 'ANSIBLE_TEST_1_1'
+        - 'ANSIBLE_TEST_2_1'
+
+    - name: Deleting dummy resource
+      ansibleguy.linuxha.raw:
+        cmd: "configure delete {{ item }}"
+        wait: true
+        force: true
+      loop:
+        - 'ANSIBLE_TEST_1_1'
+        - 'ANSIBLE_TEST_2_1'

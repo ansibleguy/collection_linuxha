@@ -40,12 +40,6 @@
           - lha1.stderr == ''
           - "'stderr_lines' in lha1"
           - lha1.stderr_lines | length == 0
-          - "'Current DC: node1' in lha1.stdout or
-          'Current DC: node2' in lha1.stdout"
-          - "'2 nodes configured' in lha1.stdout"
-          - "'0 resource instances configured' in lha1.stdout"
-          - "'Online: [ node1 node2 ]' in lha1.stdout"
-          - "'* No resources' in lha1.stdout"
 
     - name: Testing force-argument
       ansibleguy.linuxha.raw:

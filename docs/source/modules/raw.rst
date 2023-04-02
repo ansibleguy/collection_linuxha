@@ -6,7 +6,7 @@
 Raw
 ===
 
-**STATE**: testing
+**STATE**: unstable
 
 **TESTS**: `Playbook <https://github.com/ansibleguy/collection_linuxha/blob/latest/tests/raw.yml>`_
 
@@ -20,7 +20,8 @@ Definition
     :header: "Parameter", "Type", "Required", "Default", "Aliases", "Comment"
     :widths: 15 10 10 10 10 45
 
-    "reload","boolean","false","true","\-", .. include:: ../_include/param_reload.rst
+    "cmd","string","true","\-","command, c", "Raw command to pass to crm-shell"
+    "fail","boolean","false","true","f", "Fail module if command fails"
 
 .. include:: ../_include/param_basic.rst
 
@@ -41,7 +42,7 @@ Examples
 .. code-block:: yaml
 
     - hosts: node1
-      gather_facts: no
+      gather_facts: false
       become: true
       tasks:
         - name: Example

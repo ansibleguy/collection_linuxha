@@ -2,9 +2,9 @@
 
 .. include:: ../_include/head.rst
 
-======
-Config
-======
+==========
+2 - Config
+==========
 
 **Docs**: `corosync.conf <https://manpages.debian.org/testing/corosync/corosync.conf.5.en.html>`_
 

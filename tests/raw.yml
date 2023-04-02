@@ -8,7 +8,8 @@
     - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
 
   vars:
-    cmd_test1: 'configure primitive test1 IPaddr2 params ip=127.100.1.1 nic=lo'
+    test_res1: 'ANSIBLE_TEST_1_1'
+    cmd_test1: "configure primitive {{ test_res1 }} IPaddr2 params ip=127.100.1.1 nic=lo"
 
   tasks:
     - name: Running invalid command
@@ -22,7 +23,7 @@
 
     - name: Stopping resource - does not exist
       ansibleguy.linuxha.raw:
-        cmd: 'resource stop test1'
+        cmd: "resource stop {{ test_res1 }}"
       register: lha_fail2
       failed_when: >
         not lha_fail2.failed or
@@ -31,7 +32,7 @@
 
     - name: Deleting resource - does not exist
       ansibleguy.linuxha.raw:
-        cmd: 'configure delete test1'
+        cmd: "configure delete {{ test_res1 }}"
       register: lha_fail3
       failed_when: >
         not lha_fail3.failed or
@@ -111,7 +112,7 @@
 
     - name: Deleting resource - still running
       ansibleguy.linuxha.raw:
-        cmd: 'configure delete test1'
+        cmd: "configure delete {{ test_res1 }}"
       register: lha_fail4
       failed_when: >
         not lha_fail4.failed or
@@ -120,12 +121,12 @@
 
     - name: Stopping resource
       ansibleguy.linuxha.raw:
-        cmd: 'resource stop test1'
+        cmd: "resource stop {{ test_res1 }}"
       when: not ansible_check_mode
 
     - name: Removing IP
       ansibleguy.linuxha.raw:
-        cmd: 'configure delete test1'
+        cmd: "configure delete {{ test_res1 }}"
       when: not ansible_check_mode
 
     - name: Checking cleanup

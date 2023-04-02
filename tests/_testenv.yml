@@ -43,3 +43,18 @@
         that:
           - "'name: node1' in lha_host_cs_cnf_nodes.stdout"
           - "'name: node2' in lha_host_cs_cnf_nodes.stdout"
+
+    - name: Pulling raw crm-status
+      ansible.builtin.command: 'crm status'
+      changed_when: false
+      register: lha_running_cnf
+
+    - name: Checking for clean cluster-config
+      ansible.builtin.assert:
+        that:
+          - "'Current DC: node1' in lha_running_cnf.stdout or
+          'Current DC: node2' in lha_running_cnf.stdout"
+          - "'2 nodes configured' in lha_running_cnf.stdout"
+          - "'0 resource instances configured' in lha_running_cnf.stdout"
+          - "'Online: [ node1 node2 ]' in lha_running_cnf.stdout"
+          - "'* No resources' in lha_running_cnf.stdout"
