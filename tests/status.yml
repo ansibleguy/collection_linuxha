@@ -1,0 +1,70 @@
+---
+
+- name: Testing status
+  hosts: node1
+  gather_facts: no
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  vars:
+    test_res: 'ANSIBLE_TEST_2_1'
+
+  tasks:
+    - name: Getting status
+      ansibleguy.linuxha.status:
+      register: lha1
+
+    - name: Checking return
+      ansible.builtin.assert:
+        that:
+          - "'cluster' in lha1.data"
+          - "'nodes' in lha1.data"
+          - "'operations' in lha1.data"
+          - "'resources' in lha1.data"
+          - lha1.data['cluster'] | length == 9
+          - lha1.data['nodes'] | length == 2
+          - lha1.data['resources'] | length == 0
+          - lha1.data['nodes']['node1']['status'] == 'online'
+          - lha1.data['nodes']['node2']['status'] == 'online'
+
+    - name: Creating dummy resource
+      ansibleguy.linuxha.raw:
+        cmd: "configure primitive {{ test_res }} IPaddr2 params ip=127.100.1.2 nic=lo"
+
+    - name: Getting status
+      ansibleguy.linuxha.status:
+      register: lha2
+
+    - name: Checking return 2
+      ansible.builtin.assert:
+        that:
+          - lha2.data['resources'] | length == 1
+          - lha2.data['operations'] | length > 0
+          - "'nodes' in lha2.data['resources'][test_res]"
+          - "'resource' in lha2.data['resources'][test_res]"
+          - "'class' in lha2.data['resources'][test_res]['resource']"
+          - "'provider' in lha2.data['resources'][test_res]['resource']"
+          - "'type' in lha2.data['resources'][test_res]['resource']"
+
+    - name: Getting detailed status (XML)
+      ansibleguy.linuxha.status:
+        detailed: true
+      register: lha3
+
+    - name: Checking detailed return
+      ansible.builtin.assert:
+        that:
+          - "'node_history' in lha3.data"
+          - "'nodes' in lha3.data"
+          - "'resources' in lha3.data"
+          - "'summary' in lha3.data"
+          - "'version' in lha3.data"
+
+    - name: Cleanup dummy resource
+      ansibleguy.linuxha.raw:
+        cmd: "{{ item }}"
+        wait: true
+      loop:
+        - "resource stop {{ test_res }}"
+        - "configure delete {{ test_res }}"

@@ -23,13 +23,27 @@ Feel free to contribute to this project using [pull-requests](https://github.com
 
 ## Requirements
 
+### LinuxHA
+
 You will have to install the LinuxHA packages on the target server:
 * [LinuxHA](https://wiki.clusterlabs.org/wiki/Install) ([corosync](https://github.com/corosync/corosync) and [pacemaker](https://github.com/ClusterLabs/pacemaker))
-* [crm-shell](https://github.com/ClusterLabs/crmsh)
+* [crm-shell](https://github.com/ClusterLabs/crmsh) (crmsh)
 
 After that - configure the basic cluster using the '[corosync.conf](https://linux.die.net/man/5/corosync.conf)' file.
 
 Example config: [documentation](https://linuxha.ansibleguy.net/en/latest/usage/config.html)
+
+### XML Parsing
+
+The [xmltodict python module](https://github.com/martinblech/xmltodict) is used to parse config!
+
+It is only needed on the Ansible controller!
+
+```bash
+python3 -m pip install xmltodict
+```
+
+### Collection
 
 Then - install the collection itself:
 
@@ -62,9 +76,10 @@ not implemented => development => [testing](https://github.com/ansibleguy/collec
 ### Implemented
 
 
-| Function            | Module                 | Usage                                                             | State   |
-|:--------------------|:-----------------------|:------------------------------------------------------------------|:--------|
-| **Base**            | ansibleguy.linuxha.raw | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/raw.html) | testing |
+| Function                 | Module                    | Usage                                                                | State    |
+|:-------------------------|:--------------------------|:---------------------------------------------------------------------|:---------|
+| **Execute raw commands** | ansibleguy.linuxha.raw    | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/raw.html)    | unstable |
+| **Parsed status**        | ansibleguy.linuxha.status | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/status.html) | unstable  |
 
 ### Roadmap
 

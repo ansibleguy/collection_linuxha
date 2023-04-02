@@ -1,3 +1,7 @@
+LHA_MOD_ARGS_MAIN = dict(
+    debug=dict(type='bool', required=False, default=False),
+)
+
 LHA_MOD_ARGS = dict(
     wait=dict(
         type='bool', required=False, default=False,
@@ -9,5 +13,5 @@ LHA_MOD_ARGS = dict(
         description='Make crm proceed with applying changes where it would normally ask the user to confirm before '
                     'proceeding. This option is mainly useful in scripts, and should be used with care'
     ),
-    debug=dict(type='bool', required=False, default=False),
+    debug=LHA_MOD_ARGS_MAIN['debug'],
 )

@@ -10,9 +10,9 @@ from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import 
 DEFAULT_BIN = '/usr/sbin/crm'
 
 
-def _run_cmd_wrapper(m: AnsibleModule, cmd: list, stdin: str = None) -> tuple:
+def _run_cmd_wrapper(m: AnsibleModule, cmd: list, stdin: str = None, shell: bool = False) -> tuple:
     debug(m=m, msg=f"Executing command: '{' '.join(cmd)}'")
-    return m.run_command(cmd, data=stdin)
+    return m.run_command(cmd, data=stdin, use_unsafe_shell=shell)
 
 
 def _build_cmd(m: AnsibleModule, args: list) -> list:
@@ -37,12 +37,13 @@ def _build_cmd(m: AnsibleModule, args: list) -> list:
 
     cmd = [cmd_bin]
 
-    for param, check_args in {
+    for check_param, check_args in {
         'debug': ['--debug', '-d'],
         'force': ['--force', '-F'],
         'wait': ['--wait', '-w'],
     }.items():
-        if m.params[param] and all(arg not in args for arg in check_args):
+        if check_param in m.params and m.params[check_param] and \
+                all(arg not in args for arg in check_args):
             cmd.append(check_args[0])
 
     cmd.extend(args)
@@ -95,7 +96,11 @@ def _exec(m: AnsibleModule, r: dict, cmd: list, fail: bool, check_safe: bool) ->
 
     if not m.check_mode or check_safe:
         # NOTE: 'stdin=n' for possible yes/no prompt
-        r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n')
+        if '|' in cmd:
+            r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n', shell=True)
+
+        else:
+            r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n')
 
         if r['rc'] != 0:
             _error_handling(m=m, r=r, cmd=cmd, fail=fail)

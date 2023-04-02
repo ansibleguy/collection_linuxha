@@ -1,0 +1,1 @@
+action-plugins are used to parse xml so it isn't done on the server-side (dependency would have to be installed on every server..)
