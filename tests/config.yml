@@ -1,0 +1,64 @@
+---
+
+- name: Testing config
+  hosts: node1
+  gather_facts: no
+  become: true
+  vars_files:
+    - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
+
+  vars:
+    test_res: 'ANSIBLE_TEST_3_1'
+
+  tasks:
+    - name: Getting config
+      ansibleguy.linuxha.config:
+        debug: true
+      register: lha1
+
+    - debug:
+        var: lha1.data
+
+    - name: Checking return
+      ansible.builtin.assert:
+        that:
+          - "'cluster' in lha1.data"
+          - "'nodes' in lha1.data"
+          - "'operations' in lha1.data"
+          - "'resources' in lha1.data"
+          - lha1.data['cluster'] | length == 9
+          - lha1.data['nodes'] | length == 2
+          - lha1.data['resources'] | length == 0
+          - lha1.data['nodes']['node1']['status'] == 'online'
+          - lha1.data['nodes']['node2']['status'] == 'online'
+
+#    - name: Creating dummy resource
+#      ansibleguy.linuxha.raw:
+#        cmd: "configure primitive {{ test_res }} IPaddr2 params ip=127.100.1.2 nic=lo"
+#      when: not ansible_check_mode
+#
+#    - name: Getting config
+#      ansibleguy.linuxha.config:
+#      register: lha2
+#      when: not ansible_check_mode
+#
+#    - name: Checking return 2
+#      ansible.builtin.assert:
+#        that:
+#          - lha2.data['resources'] | length == 1
+#          - lha2.data['operations'] | length > 0
+#          - "'nodes' in lha2.data['resources'][test_res]"
+#          - "'resource' in lha2.data['resources'][test_res]"
+#          - "'class' in lha2.data['resources'][test_res]['resource']"
+#          - "'provider' in lha2.data['resources'][test_res]['resource']"
+#          - "'type' in lha2.data['resources'][test_res]['resource']"
+#      when: not ansible_check_mode
+#
+#    - name: Cleanup dummy resource
+#      ansibleguy.linuxha.raw:
+#        cmd: "{{ item }}"
+#        wait: true
+#      loop:
+#        - "resource stop {{ test_res }}"
+#        - "configure delete {{ test_res }}"
+#      when: not ansible_check_mode
