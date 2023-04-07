@@ -8,6 +8,7 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS_MAIN
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.status import status_full
+from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import extract_debug
 
 DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
 EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
@@ -47,9 +48,10 @@ def run_module():
         _, raw_status = crmsh_exec(
             m=module,
             r=result,
-            cmd=['status', 'xml', '|', 'cat'],
+            cmd=['status', 'xml'],
             check_safe=True, output=True,
         )
+        raw_status = extract_debug(p=module.params, r=result, raw=raw_status)
         result['_action'] = raw_status
 
     else:

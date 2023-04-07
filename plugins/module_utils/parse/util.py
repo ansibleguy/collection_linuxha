@@ -16,3 +16,27 @@ def extract(raw: str, pre: str, post: str, mid: str = None, mid_idx: int = 0, mi
 
 def extract_post(raw: str, post: str, pre: str) -> str:
     return raw.split(post, 1)[0].rsplit(pre, 1)[1].strip()
+
+
+def extract_debug(p: dict, r: dict, raw: str) -> str:
+    if p['debug']:
+        data = []
+
+        if 'debug' not in r:
+            r['debug'] = []
+
+        for idx, line in enumerate(raw.splitlines()):
+            if idx == 0:
+                # date + time
+                r['debug'].append(line)
+                continue
+
+            if line.startswith('DEBUG: '):
+                r['debug'].append(line)
+
+            else:
+                data.append(line)
+
+        return '\n'.join(data)
+
+    return raw

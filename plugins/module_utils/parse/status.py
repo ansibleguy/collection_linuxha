@@ -5,15 +5,21 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import debug
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import \
-    cut_block, extract_post, extract
+    cut_block, extract_post, extract, extract_debug
 
 DATETIME_FORMAT = '%a %b %d %H:%M:%S %Y'
 # 'Sun Apr  2 15:46:05 2023'
 
 
 def cluster(m: AnsibleModule, raw_status: str) -> dict:
+    key = 'Cluster Summary:'
     debug(m=m, msg='Status - parsing cluster!')
-    raw = cut_block(raw=raw_status, start='Cluster Summary:')
+
+    if raw_status.find(key) == -1:
+        debug(m=m, msg='Status - unable to extract cluster status!')
+        return {}
+
+    raw = cut_block(raw=raw_status, start=key)
     return dict(
         dc=extract(raw=raw, pre='Current DC: ', post=' '),
         version=extract(raw=raw, pre='Current DC: ', post=')', mid=' ', mid_rsplit=True, mid_idx=1),
@@ -154,6 +160,7 @@ def status_full(m: AnsibleModule, r: dict, raw_status: str = None) -> dict:
             cmd=['status', 'full', '|', 'cat'],
             check_safe=True, output=True,
         )
+        raw_status = extract_debug(p=m.params, r=r, raw=raw_status)
 
     data = {}
 

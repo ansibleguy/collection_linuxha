@@ -12,6 +12,10 @@
       ansibleguy.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
+      register: cl_res1
+      failed_when:
+        - cl_res1.failed
+        - "'Resource not found' not in cl_res1.stderr"
       loop:
         - 'ANSIBLE_TEST_1_1'
         - 'ANSIBLE_TEST_2_1'
@@ -21,6 +25,10 @@
         cmd: "configure delete {{ item }}"
         wait: true
         force: true
+      register: cl_res2
+      failed_when:
+        - cl_res2.failed
+        - "'Resource not found' not in cl_res2.stderr"
       loop:
         - 'ANSIBLE_TEST_1_1'
         - 'ANSIBLE_TEST_2_1'

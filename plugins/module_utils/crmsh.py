@@ -11,7 +11,7 @@ DEFAULT_BIN = '/usr/sbin/crm'
 
 
 def _run_cmd_wrapper(m: AnsibleModule, cmd: list, stdin: str = None, shell: bool = False) -> tuple:
-    debug(m=m, msg=f"Executing command: '{' '.join(cmd)}'")
+    debug(m=m, msg=f"Executing command: '{' '.join(cmd)}' (shell: {shell})")
     return m.run_command(cmd, data=stdin, use_unsafe_shell=shell)
 
 
@@ -57,7 +57,7 @@ def _check_become(m: AnsibleModule) -> None:
         )
 
 
-def _error_handling(m: AnsibleModule, r: dict, fail: bool, cmd: list) -> None:
+def _error_handling(m: AnsibleModule, r: dict, fail: bool, cmd: list, shell: bool) -> None:
     error = None
 
     if r['stderr'].find('Could not connect to the CIB') != -1:
@@ -78,7 +78,7 @@ def _error_handling(m: AnsibleModule, r: dict, fail: bool, cmd: list) -> None:
                 if rc_pm != 0:
                     error = "Service 'pacemaker.service' not running!"
 
-    msg = f"GOT ERROR RUNNING COMMAND '{' '.join(cmd)}'"
+    msg = f"GOT ERROR RUNNING COMMAND '{' '.join(cmd)}' (SHELL: {shell})"
 
     if error is not None:
         msg += f": '{error}'"
@@ -96,14 +96,14 @@ def _exec(m: AnsibleModule, r: dict, cmd: list, fail: bool, check_safe: bool) ->
 
     if not m.check_mode or check_safe:
         # NOTE: 'stdin=n' for possible yes/no prompt
+        shell = False
         if '|' in cmd:
-            r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n', shell=True)
+            shell = True
 
-        else:
-            r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n')
+        r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n', shell=shell)
 
         if r['rc'] != 0:
-            _error_handling(m=m, r=r, cmd=cmd, fail=fail)
+            _error_handling(m=m, r=r, cmd=cmd, fail=fail, shell=shell)
 
     else:
         r['stdout'] = 'CHECK-MODE'
