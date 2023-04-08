@@ -57,7 +57,7 @@
         'DEBUG:' not in lha3.stderr or
         'warnings' not in lha3 or
         lha3.warnings | length != 1 or
-        lha3.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug configure show'"
+        lha3.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug configure show' (shell: False)"
 
     - name: Testing wait-argument
       ansibleguy.linuxha.raw:
@@ -65,7 +65,7 @@
         wait: true
       register: lha4
 
-    - name: Testing all argument
+    - name: Testing all arguments
       ansibleguy.linuxha.raw:
         cmd: 'configure show'
         wait: true
@@ -77,9 +77,9 @@
         'DEBUG:' not in lha5.stderr or
         'warnings' not in lha5 or
         lha5.warnings | length != 1 or
-        lha5.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug --force --wait configure show'"
+        lha5.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug --force --wait configure show' (shell: False)"
 
-    - name: Testing all argument - also supplied as arguments
+    - name: Testing all arguments - also supplied as arguments
       ansibleguy.linuxha.raw:
         cmd: '--wait --debug configure show'
         wait: true
@@ -91,4 +91,16 @@
         'DEBUG:' not in lha6.stderr or
         'warnings' not in lha6 or
         lha6.warnings | length != 1 or
-        lha6.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --force --wait --debug configure show'"
+        lha6.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --force --wait --debug configure show' (shell: False)"
+
+    - name: Testing auto-shell usage
+      ansibleguy.linuxha.raw:
+        cmd: 'status full | cat'
+        debug: true
+      register: lha7
+      failed_when: >
+        lha7.failed or
+        'DEBUG:' not in lha7.stderr or
+        'warnings' not in lha7 or
+        lha7.warnings | length != 1 or
+        lha7.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug status full | cat' (shell: True)"
