@@ -37,6 +37,8 @@ else
   VERBOSITY=''
 fi
 
+set -u
+
 source "$(dirname "$0")/test_prep.sh"  # shared between single/multi test
 
 echo ''
@@ -56,3 +58,5 @@ echo '##############################'
 echo 'FINISHED TESTS!'
 echo '##############################'
 echo ''
+
+rm -rf "$TMP_DIR"

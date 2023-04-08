@@ -95,14 +95,14 @@
           - "'configuration' in lha4.data"
           - "'constraints' in lha4.data['configuration']"
           - "'rsc_location' in lha4.data['configuration']['constraints']"
-          - "'crm_config' in lha4.data"
-          - "'cluster_property_set' in lha4.data['crm_config']"
-          - "'nodes' in lha4.data"
-          - "'node' in lha4.data['nodes']"
-          - "'resources' in lha4.data"
-          - "'clone' in lha4.data['resources']"
-          - "'group' in lha4.data['resources']"
-          - "'primitive' in lha4.data['resources']"
+          - "'crm_config' in lha4.data['configuration']"
+          - "'cluster_property_set' in lha4.data['configuration']['crm_config']"
+          - "'nodes' in lha4.data['configuration']"
+          - "'node' in lha4.data['configuration']['nodes']"
+          - "'resources' in lha4.data['configuration']"
+          - "'clone' in lha4.data['configuration']['resources']"
+          - "'group' in lha4.data['configuration']['resources']"
+          - "'primitive' in lha4.data['configuration']['resources']"
       when: not ansible_check_mode
 
     - name: Stopping dummy resources (dependencies)

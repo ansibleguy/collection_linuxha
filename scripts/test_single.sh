@@ -47,6 +47,10 @@ else
   VERBOSITY=''
 fi
 
+set -u
+
 source "$(dirname "$0")/test_prep.sh"  # shared between single/multi test
 
 run_test "$TEST" "$CHECK_MODE"
+
+rm -rf "$TMP_DIR"

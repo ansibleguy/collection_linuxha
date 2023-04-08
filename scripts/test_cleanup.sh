@@ -4,12 +4,14 @@ set -e
 
 echo ''
 
-if [ -z "$1" ] || [ -z "$2" ]
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ] || [ -z "$4" ]
 then
   echo 'Arguments:'
   echo '  1: test-server #1'
   echo '  2: test-server #2'
-  echo '  3: path to virtual environment (optional)'
+  echo '  3: path to secret-vars-file (ansible_become_pass)'
+  echo "  4: path to local collection - set to '0' to clone from github"
+  echo '  5: path to virtual environment (optional)'
   echo ''
   exit 1
 else
@@ -17,26 +19,25 @@ else
   TEST_NODE2="$2"
 fi
 
-if [ -n "$3" ]
+export TEST_SECRETS="$3"
+LOCAL_COLLECTION="$4"
+
+if [ -n "$5" ]
 then
-  source "$3/bin/activate"
+  source "$5/bin/activate"
 fi
 
-cd "$(dirname "$0")/.."
-rm -rf "~/.ansible/collections/ansible_collections/ansibleguy/linuxha"
-ansible-galaxy collection install git+https://github.com/ansibleguy/collection_linuxha.git
+set -u
 
-TMPL_HOST_VARS="---\n\nansible_host:"
-echo -e "$TMPL_HOST_VARS '$TEST_NODE1'" > "$TMP_HOST_VARS/node1.yml"
-echo -e "$TMPL_HOST_VARS '$TEST_NODE2'" > "$TMP_HOST_VARS/node2.yml"
+source "$(dirname "$0")/test_prep.sh"  # shared
 
 echo ''
 echo 'RUNNING CLEANUP'
 echo ''
 
-ansible-playbook tests/_cleanup.yml -i tests/inv/hosts.yml $VERBOSITY
+ansible-playbook tests/_cleanup.yml -i tests/inv/hosts.yml
 
-rm -rf "~/.ansible/collections/ansible_collections/ansibleguy/linuxha"
+rm -rf "$TMP_DIR"
 
 echo ''
 echo 'FINISHED CLEANUP!'
