@@ -8,7 +8,7 @@
     - "{{ lookup('ansible.builtin.env', 'TEST_SECRETS') }}"
 
   tasks:
-    - name: Stopping resources
+    - name: Stopping resources (1/2)
       ansibleguy.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
@@ -16,19 +16,64 @@
       failed_when:
         - cl_res1.failed
         - "'Resource not found' not in cl_res1.stderr"
+      changed_when: >
+        not cl_res1.failed or
+        'Resource not found' not in cl_res1.stderr
       loop:
-        - 'ANSIBLE_TEST_1_1'
-        - 'ANSIBLE_TEST_2_1'
+        - 'ANSIBLE_TEST_3_5'
+        - 'ANSIBLE_TEST_3_6'
 
-    - name: Deleting dummy resource
+    - name: Deleting dummy resource (1/2)
       ansibleguy.linuxha.raw:
         cmd: "configure delete {{ item }}"
         wait: true
-        force: true
       register: cl_res2
       failed_when:
         - cl_res2.failed
-        - "'Resource not found' not in cl_res2.stderr"
+        - "'does not exist' not in cl_res2.stderr"
+      changed_when: >
+        not cl_res2.failed or
+        'does not exist' not in cl_res2.stderr
+      loop:
+        - 'ANSIBLE_TEST_3_5'
+        - 'ANSIBLE_TEST_3_6'
+        - 'ANSIBLE_TEST_3_7'
+        - 'ANSIBLE_TEST_3_8'
+
+    - name: Stopping resources (2/2)
+      ansibleguy.linuxha.raw:
+        cmd: "resource stop {{ item }}"
+        wait: true
+      register: cl_res3
+      failed_when:
+        - cl_res3.failed
+        - "'Resource not found' not in cl_res3.stderr"
+      changed_when: >
+        not cl_res3.failed or
+        'Resource not found' not in cl_res3.stderr
       loop:
         - 'ANSIBLE_TEST_1_1'
         - 'ANSIBLE_TEST_2_1'
+        - 'ANSIBLE_TEST_3_4'
+        - 'ANSIBLE_TEST_3_3'
+        - 'ANSIBLE_TEST_3_2'
+        - 'ANSIBLE_TEST_3_1'
+
+    - name: Deleting dummy resource (2/2)
+      ansibleguy.linuxha.raw:
+        cmd: "configure delete {{ item }}"
+        wait: true
+      register: cl_res4
+      failed_when:
+        - cl_res4.failed
+        - "'does not exist' not in cl_res4.stderr"
+      changed_when: >
+        not cl_res4.failed or
+        'does not exist' not in cl_res4.stderr
+      loop:
+        - 'ANSIBLE_TEST_1_1'
+        - 'ANSIBLE_TEST_2_1'
+        - 'ANSIBLE_TEST_3_4'
+        - 'ANSIBLE_TEST_3_3'
+        - 'ANSIBLE_TEST_3_2'
+        - 'ANSIBLE_TEST_3_1'

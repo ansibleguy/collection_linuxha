@@ -100,7 +100,9 @@ def _exec(m: AnsibleModule, r: dict, cmd: list, fail: bool, check_safe: bool) ->
         if '|' in cmd:
             shell = True
 
-        r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(m=m, cmd=cmd, stdin='n', shell=shell)
+        r['rc'], r['stdout'], r['stderr'] = _run_cmd_wrapper(
+            m=m, cmd=cmd, stdin='n', shell=shell
+        )
 
         if r['rc'] != 0:
             _error_handling(m=m, r=r, cmd=cmd, fail=fail, shell=shell)

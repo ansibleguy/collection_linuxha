@@ -80,7 +80,7 @@ not implemented => development => [testing](https://github.com/ansibleguy/collec
 |:-------------------------|:--------------------------|:---------------------------------------------------------------------|:---------|
 | **Execute raw commands** | ansibleguy.linuxha.raw    | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/raw.html)    | unstable |
 | **Parsed status**        | ansibleguy.linuxha.status | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/status.html) | unstable |
-| **Parsed config**        | ansibleguy.linuxha.config | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/config.html) | testing  |
+| **Parsed config**        | ansibleguy.linuxha.config | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/config.html) | unstable  |
 
 ### Roadmap
 

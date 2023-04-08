@@ -49,6 +49,7 @@ run_test '_testenv' 0
 run_test 'base' 0
 run_test 'raw' 1
 run_test 'status' 1
+run_test 'config' 1
 
 echo ''
 echo '##############################'

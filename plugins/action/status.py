@@ -13,12 +13,12 @@ class ActionModule(ActionBase):
             tmp=tmp
         )
 
-        if '_action' in result:
+        if '_data' in result:
             # if 'detailed: true'
             result['data'] = parse_xml(
-                result['_action'],
+                result['_data'],
                 attr_prefix=''
             )['crm_mon']
-            result.pop('_action')
+            result.pop('_data')
 
         return result

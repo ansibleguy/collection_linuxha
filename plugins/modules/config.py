@@ -14,7 +14,21 @@ EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/config.html'
 
 
 def run_module():
-    module_args = LHA_MOD_ARGS_MAIN
+    module_args = dict(
+        **LHA_MOD_ARGS_MAIN,
+        raw=dict(
+            type='bool', required=False, default=False,
+            description='Return the full un-modified/-simplified config-dump',
+        ),
+        subset=dict(
+            type='list', elements='str', required=False, aliases=['parse', 'sub'],
+            default=[
+                'groups', 'locations', 'nodes', 'orders', 'primitives', 'properties',
+                'clones',
+            ],
+            description="Provide subsets to parse (ignored if 'raw: true' is set)",
+        ),
+    )
 
     result = dict(
         changed=False,
@@ -34,8 +48,8 @@ def run_module():
         cmd=['configure', 'show', 'xml'],
         check_safe=True, output=True,
     )
-    raw_config = extract_debug(p=module.params, r=result, raw=raw_config)
-    result['_action'] = raw_config
+    result['_data'] = extract_debug(p=module.params, r=result, raw=raw_config)
+    result['_params'] = module.params
 
     module.exit_json(**result)
 

@@ -52,7 +52,7 @@ def run_module():
             check_safe=True, output=True,
         )
         raw_status = extract_debug(p=module.params, r=result, raw=raw_status)
-        result['_action'] = raw_status
+        result['_data'] = raw_status
 
     else:
         result['data'] = status_full(m=module, r=result)
