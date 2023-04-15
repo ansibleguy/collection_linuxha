@@ -59,7 +59,7 @@
           - lha2.data['locations'] | length == 1
           - lha2.data['nodes'] | length == 2
           - lha2.data['orders'] | length == 1
-          - lha2.data['primitives'] | length == 3
+          - lha2.data['primitives'] | length == 4
           - lha2.data['clones'][test_cln] | length == 1
           - lha2.data['groups'][test_grp] | length == 2
       when: not ansible_check_mode
@@ -80,7 +80,7 @@
           - "'orders' not in lha3.data"
           - "'primitives' in lha3.data"
           - "'properties' in lha3.data"
-          - lha3.data['primitives'] | length == 3
+          - lha3.data['primitives'] | length == 4
       when: not ansible_check_mode
 
     - name: Getting raw config

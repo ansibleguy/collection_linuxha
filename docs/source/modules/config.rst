@@ -3,7 +3,7 @@
 .. include:: ../_include/head.rst
 
 ======
-Status
+Config
 ======
 
 **STATE**: unstable
@@ -111,6 +111,21 @@ Examples
         #             },
         #             "provider": "heartbeat",
         #             "type": "IPaddr2"
+        #         },
+        #         "ANSIBLE_TEST_3_4": {
+        #             "class": "ocf",
+        #             "operations": {
+        #                 "monitor": {
+        #                     "interval": "5s",
+        #                     "on-fail": "restart",
+        #                     "timeout": "60"
+        #                 }
+        #             },
+        #             "params": {
+        #                 "host_list": "1.1.1.1 8.8.8.8"
+        #             },
+        #             "provider": "pacemaker",
+        #             "type": "ping"
         #         }
         #     },
         #     "properties": {
@@ -160,6 +175,21 @@ Examples
         #             },
         #             "provider": "heartbeat",
         #             "type": "IPaddr2"
+        #         },
+        #         "ANSIBLE_TEST_3_4": {
+        #             "class": "ocf",
+        #             "operations": {
+        #                 "monitor": {
+        #                     "interval": "5s",
+        #                     "on-fail": "restart",
+        #                     "timeout": "60"
+        #                 }
+        #             },
+        #             "params": {
+        #                 "host_list": "1.1.1.1 8.8.8.8"
+        #             },
+        #             "provider": "pacemaker",
+        #             "type": "ping"
         #         }
         #     },
         #     "properties": {

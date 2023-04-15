@@ -38,6 +38,21 @@ def build_params(nvpairs: (list, dict)) -> dict:
     return type_correction(params)
 
 
+def build_operations(ops: dict) -> dict:
+    operations = {}
+
+    if not isinstance(ops, dict):
+        return operations
+
+    for op in ops.values():
+        _op_values = op.copy()
+        _op_values.pop('name')
+        _op_values.pop('id')
+        operations[op['name']] = _op_values
+
+    return type_correction(operations)
+
+
 def parse_properties(raw_props: dict) -> dict:
     key1, key2 = 'cluster_property_set', 'nvpair'
     props = {}
@@ -60,19 +75,23 @@ def parse_nodes(raw_nodes: dict) -> dict:
 
 
 def parse_primitives(raw_prims: (dict, list)) -> dict:
-    key1, key2 = 'instance_attributes', 'nvpair'
-    prims = {}
+    keypm1, keypm2, keyop = 'instance_attributes', 'nvpair', 'operations'
+    prims, operations = {}, {}
 
     for prim in ensure_list(raw_prims):
         params = {}
-        if key1 in prim and key2 in prim[key1]:
-            params = build_params(prim[key1][key2])
+        if keypm1 in prim and keypm2 in prim[keypm1]:
+            params = build_params(prim[keypm1][keypm2])
+
+        if keyop in prim:
+            operations = build_operations(prim[keyop])
 
         prims[prim['id']] = {
             'class': prim['class'] if 'class' in prim else None,
             'provider': prim['provider'] if 'provider' in prim else None,
             'type': prim['type'] if 'type' in prim else None,
             'params': params,
+            'operations': operations,
         }
 
     return prims
@@ -227,16 +246,24 @@ class ActionModule(ActionBase):
 
     @staticmethod
     def _parse_special_cases(params: dict, raw_config: dict, result: dict):
-        # primitives in groups
         if params['subset'] is None or 'primitives' in params['subset']:
             if 'resources' in raw_config and raw_config['resources'] is not None:
-                if 'group' in raw_config['resources']:
-                    prims = result['data']['primitives'] if 'primitives' in result['data'] else {}
+                prims = result['data']['primitives'] if 'primitives' in result['data'] else {}
 
+                # primitives in groups
+                if 'group' in raw_config['resources']:
                     for grp in ensure_list(raw_config['resources']['group']):
                         if 'primitive' in grp:
                             for prim in ensure_list(grp['primitive']):
                                 if prim['id'] not in prims:
                                     prims = {**parse_primitives(prim), **prims}
 
-                    result['data']['primitives'] = prims
+                # primitives in clones
+                if 'clone' in raw_config['resources']:
+                    for cln in ensure_list(raw_config['resources']['clone']):
+                        if 'primitive' in cln:
+                            for prim in ensure_list(cln['primitive']):
+                                if prim['id'] not in prims:
+                                    prims = {**parse_primitives(prim), **prims}
+
+                result['data']['primitives'] = prims
