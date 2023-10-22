@@ -3,7 +3,7 @@
 [![Functional Test Status](https://badges.ansibleguy.net/linuxha.collection.test.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/test.sh)
 [![Lint Test Status](https://badges.ansibleguy.net/linuxha.collection.lint.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/lint.sh)
 [![Docs](https://readthedocs.org/projects/ansible-linuxha/badge/?version=latest&style=flat)](https://linuxha.ansibleguy.net)
-[![Ansible Galaxy](https://img.shields.io/ansible/collection/2409)](https://galaxy.ansible.com/ansibleguy/linuxha)
+[![Ansible Galaxy](https://badges.ansibleguy.net/galaxy.badge.svg)](https://galaxy.ansible.com/ui/repo/published/ansibleguy/linuxha)
 
 ----
 
