@@ -5,6 +5,8 @@
 [![Docs](https://readthedocs.org/projects/ansible-linuxha/badge/?version=latest&style=flat)](https://linuxha.ansibleguy.net)
 [![Ansible Galaxy](https://badges.ansibleguy.net/galaxy.badge.svg)](https://galaxy.ansible.com/ui/repo/published/ansibleguy/linuxha)
 
+[Functional Test Logs (if failed)](https://badges.ansibleguy.net/log/collection_linuxha_test.log)
+
 ----
 
 ## Contribute
