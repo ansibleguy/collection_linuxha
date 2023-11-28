@@ -9,8 +9,8 @@ from ansible_collections.ansibleguy.linuxha.plugins.module_utils.defaults import
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import extract_debug
 
-DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/config.html'
-EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/config.html'
+# DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/config.html'
+# EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/config.html'
 
 
 def run_module():

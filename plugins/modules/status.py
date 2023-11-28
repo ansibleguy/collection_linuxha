@@ -10,8 +10,8 @@ from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import cr
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.status import status_full
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import extract_debug
 
-DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
-EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
+# DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
+# EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/status.html'
 
 
 def run_module():

@@ -8,8 +8,8 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS
 from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
 
-DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/raw.html'
-EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/raw.html'
+# DOCUMENTATION = 'https://linuxha.ansibleguy.net/en/latest/modules/raw.html'
+# EXAMPLES = 'https://linuxha.ansibleguy.net/en/latest/modules/raw.html'
 
 
 def run_module():
