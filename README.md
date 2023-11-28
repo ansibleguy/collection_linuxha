@@ -48,11 +48,11 @@ python3 -m pip install xmltodict
 Then - install the collection itself:
 
 ```bash
-# stable/tested version:
-ansible-galaxy collection install ansibleguy.linuxha
-
 # latest version:
 ansible-galaxy collection install git+https://github.com/ansibleguy/collection_linuxha.git
+
+# stable/tested version:
+ansible-galaxy collection install ansibleguy.linuxha
 
 # install to specific directory for easier development
 cd $PLAYBOOK_DIR
