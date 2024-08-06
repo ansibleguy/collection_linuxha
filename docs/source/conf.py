@@ -5,10 +5,10 @@ from datetime import datetime
 project = 'Ansible Collection - LinuxHA'
 copyright = f'{datetime.now().year}, AnsibleGuy'
 author = 'AnsibleGuy'
-extensions = ['sphinx_rtd_theme']
+extensions = ['piccolo_theme']
 templates_path = ['_templates']
 exclude_patterns = []
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'piccolo_theme'
 html_static_path = ['_static']
 html_logo = 'https://clusterlabs.org/assets/clusterlabs3-9dbb18813995af518cd0b823b0eaaa83b4ba5770f199728d37818b090f1f377c.svg'
 html_favicon = '_static/img/favicon.ico'
@@ -20,3 +20,4 @@ source_suffix = {
     '.rst': 'restructuredtext',
 }
 html_theme_options = {}
+html_short_title = 'Ansible LinuxHA'
