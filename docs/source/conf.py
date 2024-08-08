@@ -20,7 +20,7 @@ source_suffix = {
     '.rst': 'restructuredtext',
 }
 html_theme_options = {
-    'banner_text': 'Check out <a href="https://github.com/ansibleguy/collection_linuxha">the repository on GitHub</a> | '
-                   'Report <a href="https://github.com/ansibleguy/collection_linuxha/issues/new/choose">missing/incorrect information or broken links</a>'
+    'banner_text': '<a href="https://github.com/ansibleguy/collection_linuxha">Repository on GitHub</a> | '
+                   '<a href="https://github.com/ansibleguy/collection_linuxha/issues/new/choose">Report errors</a>'
 }
 html_short_title = 'Ansible LinuxHA'
