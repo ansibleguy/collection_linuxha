@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/</loc></url>
+
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/usage/1_install.html</loc></url>
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/usage/2_config.html</loc></url>
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/usage/3_basic.html</loc></url>
+
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/modules/1_basic.html</loc></url>
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/modules/config.html</loc></url>
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/modules/raw.html</loc></url>
+   <url><loc>https://linuxha.ansibleguy.net/en/latest/modules/status.html</loc></url>
+</urlset>
