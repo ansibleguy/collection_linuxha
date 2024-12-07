@@ -4,7 +4,6 @@
 
 [![Functional Test Status](https://badges.ansibleguy.net/linuxha.collection.test.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/test.sh)
 [![Lint Test Status](https://badges.ansibleguy.net/linuxha.collection.lint.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/lint.sh)
-[![Docs](https://readthedocs.org/projects/ansible-linuxha/badge/?version=latest&style=flat)](https://linuxha.ansibleguy.net)
 [![Ansible Galaxy](https://badges.ansibleguy.net/galaxy.badge.svg)](https://galaxy.ansible.com/ui/repo/published/ansibleguy/linuxha)
 
 [Functional Test Logs (if failed)](https://badges.ansibleguy.net/log/collection_linuxha_test.log)
@@ -86,6 +85,8 @@ ansible-galaxy collection install git+https://github.com/ansibleguy/collection_l
 ## Usage
 
 See: [Docs](https://linuxha.ansibleguy.net)
+
+[![Docs Uptime](https://status.oxl.at/api/v1/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation/uptimes/7d/badge.svg)](https://status.oxl.at/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation)
 
 You want a simple Ansible GUI? Check-out my [Ansible WebUI](https://github.com/ansibleguy/webui)
 
