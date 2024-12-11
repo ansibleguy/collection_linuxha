@@ -88,7 +88,7 @@ See: [Docs](https://linuxha.ansibleguy.net)
 
 [![Docs Uptime](https://status.oxl.at/api/v1/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation/uptimes/7d/badge.svg)](https://status.oxl.at/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation)
 
-You want a simple Ansible GUI? Check-out my [Ansible WebUI](https://github.com/ansibleguy/webui)
+[Alternative Link](https://ansible-linuxha.readthedocs.io/)
 
 ----
 
