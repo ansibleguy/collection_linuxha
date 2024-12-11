@@ -34,7 +34,7 @@ You will have to install the LinuxHA packages on the target server:
 
 After that - configure the basic cluster using the '[corosync.conf](https://linux.die.net/man/5/corosync.conf)' file.
 
-Example config: [documentation](https://linuxha.ansibleguy.net/en/latest/usage/config.html)
+Example config: [documentation](https://linuxha.ansibleguy.net/usage/config.html)
 
 ### XML Parsing
 
@@ -88,7 +88,7 @@ See: [Docs](https://linuxha.ansibleguy.net)
 
 [![Docs Uptime](https://status.oxl.at/api/v1/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation/uptimes/7d/badge.svg)](https://status.oxl.at/endpoints/4--ansibleguy_ansible-collection---linuxha-documentation)
 
-You want a simple Ansible GUI? Check-out my [Ansible WebUI](https://github.com/ansibleguy/webui)
+[Alternative Link](https://ansible-linuxha.readthedocs.io/)
 
 ----
 
@@ -103,9 +103,9 @@ not implemented => development => [testing](https://github.com/ansibleguy/collec
 
 | Function                 | Module                    | Usage                                                                | State    |
 |:-------------------------|:--------------------------|:---------------------------------------------------------------------|:---------|
-| **Execute raw commands** | ansibleguy.linuxha.raw    | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/raw.html)    | unstable |
-| **Parsed status**        | ansibleguy.linuxha.status | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/status.html) | unstable |
-| **Parsed config**        | ansibleguy.linuxha.config | [Docs](https://linuxha.ansibleguy.net/en/latest/modules/config.html) | unstable  |
+| **Execute raw commands** | ansibleguy.linuxha.raw    | [Docs](https://linuxha.ansibleguy.net/modules/raw.html)    | unstable |
+| **Parsed status**        | ansibleguy.linuxha.status | [Docs](https://linuxha.ansibleguy.net/modules/status.html) | unstable |
+| **Parsed config**        | ansibleguy.linuxha.config | [Docs](https://linuxha.ansibleguy.net/modules/config.html) | unstable  |
 
 ### Roadmap
 
