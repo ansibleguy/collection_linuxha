@@ -1,7 +1,5 @@
 # Ansible Collection - ansibleguy.linuxha
 
-<a href='https://ko-fi.com/ansible0guy' target='_blank'><img height='35' style='border:0px;height:46px;' src='https://az743702.vo.msecnd.net/cdn/kofi3.png?v=0' border='0' alt='Buy me a coffee' />
-
 [![Functional Test Status](https://badges.ansibleguy.net/linuxha.collection.test.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/test.sh)
 [![Lint Test Status](https://badges.ansibleguy.net/linuxha.collection.lint.svg)](https://github.com/ansibleguy/collection_linuxha/blob/latest/scripts/lint.sh)
 [![Ansible Galaxy](https://badges.ansibleguy.net/galaxy.badge.svg)](https://galaxy.ansible.com/ui/repo/published/ansibleguy/linuxha)
