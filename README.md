@@ -69,24 +69,6 @@ ansible-galaxy collection install git+https://github.com/ansibleguy/collection_l
 
 ----
 
-## Advertisement
-
-* Need **professional support** using Ansible or LinuxHA? Contact us:
-
-  E-Mail: [contact@oxl.at](mailto:contact@oxl.at)
-
-  Tel: [+43 3115 40 900 0](tel:+433115409000)
-
-  Web: [EN](https://www.o-x-l.com) | [DE](https://www.oxl.at)
-
-  Language: German or English
-
-* You want a simple **Ansible GUI**?
-
-  Check-out this [Ansible WebUI](https://github.com/ansibleguy/webui)
-
-----
-
 ## Usage
 
 See: [Docs](https://linuxha.ansibleguy.net)
