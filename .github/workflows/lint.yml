@@ -19,7 +19,7 @@ on:
       - 'requirements_lint.txt'
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     timeout-minutes: 2
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
