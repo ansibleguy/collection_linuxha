@@ -8,7 +8,7 @@ Config
 
 **STATE**: unstable
 
-**TESTS**: `Playbook <https://github.com/ansibleguy/collection_linuxha/blob/latest/tests/config.yml>`_
+**TESTS**: `Playbook <https://github.com/O-X-L/ansible-collection-linuxha/blob/latest/tests/config.yml>`_
 
 
 Definition
@@ -39,12 +39,12 @@ Examples
       become: true
       tasks:
         - name: Example
-          ansibleguy.linuxha.config:
+          oxlorg.linuxha.config:
             # raw: false
             # subset: ['groups', 'locations', 'nodes', 'orders', 'primitives', 'properties', 'clones']
 
         - name: Pulling current config
-          ansibleguy.linuxha.config:
+          oxlorg.linuxha.config:
           register: lha_config
 
         - name: Showing config
@@ -139,7 +139,7 @@ Examples
         # }
 
         - name: Pulling only a subset of the current config
-          ansibleguy.linuxha.config:
+          oxlorg.linuxha.config:
             subset: ['properties', 'primitives']
           register: lha_config_subset
 
@@ -203,7 +203,7 @@ Examples
         # }
 
         - name: Pulling current config in raw-format
-          ansibleguy.linuxha.config:
+          oxlorg.linuxha.config:
             raw: true
           register: lha_raw_config
 

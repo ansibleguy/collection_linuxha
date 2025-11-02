@@ -4,7 +4,7 @@ set -u
 
 TMP_DIR="/tmp/.linuxha_test_$(date +%s)"
 TMP_COL_DIR="$TMP_DIR/collections"
-TMP_COL_DIR2="$TMP_COL_DIR/ansible_collections/ansibleguy/linuxha"
+TMP_COL_DIR2="$TMP_COL_DIR/ansible_collections/oxlorg/linuxha"
 TMP_HOST_VARS="$TMP_COL_DIR2/tests/inv/host_vars"
 TMPL_HOST_VARS="---\n\nansible_host:"
 
@@ -14,13 +14,13 @@ export ANSIBLE_COLLECTIONS_PATH="$TMP_COL_DIR"
 
 if [[ "$LOCAL_COLLECTION" == '0' ]]
 then
-  ansible-galaxy collection install git+https://github.com/ansibleguy/collection_linuxha.git -p "$TMP_COL_DIR"
+  ansible-galaxy collection install git+https://github.com/O-X-L/ansible-collection-linuxha.git -p "$TMP_COL_DIR"
 else
   if [ -d "$LOCAL_COLLECTION" ]
   then
     echo "### TESTING COLLECTION: '$LOCAL_COLLECTION' ###"
-    mkdir -p "$TMP_COL_DIR/ansible_collections/ansibleguy/"
-    ln -s "$LOCAL_COLLECTION" "$TMP_COL_DIR/ansible_collections/ansibleguy/"
+    mkdir -p "$TMP_COL_DIR/ansible_collections/oxlorg/"
+    ln -s "$LOCAL_COLLECTION" "$TMP_COL_DIR/ansible_collections/oxlorg/"
   else
     echo "Provided collection path does not exist: '$LOCAL_COLLECTION'"
     exit 1

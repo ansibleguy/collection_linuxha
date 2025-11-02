@@ -13,7 +13,7 @@
 
   tasks:
     - name: Running invalid command
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: ['non-existent']
       register: lha_fail1
       failed_when: >
@@ -22,7 +22,7 @@
       when: not ansible_check_mode  # server-side validation
 
     - name: Stopping resource - does not exist
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ test_res1 }}"
       register: lha_fail2
       failed_when: >
@@ -31,7 +31,7 @@
       when: not ansible_check_mode  # server-side validation
 
     - name: Deleting resource - does not exist
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ test_res1 }}"
       register: lha_fail3
       failed_when: >
@@ -40,7 +40,7 @@
       when: not ansible_check_mode  # server-side validation
 
     - name: Running status command
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'status'
       register: lha1
 
@@ -59,12 +59,12 @@
           - lha1.stderr_lines | length == 0
 
     - name: Enabling stonith
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure property stonith-enabled=true'
       when: not ansible_check_mode
 
     - name: Running configure-show command
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
       register: lha2
       when: not ansible_check_mode
@@ -76,7 +76,7 @@
       when: not ansible_check_mode
 
     - name: Adding IP - will fail because of stonith
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "{{ cmd_test1 }}"
       register: lha3
       failed_when: >
@@ -85,12 +85,12 @@
       when: not ansible_check_mode
 
     - name: Disabling stonith
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure property stonith-enabled=false'
       when: not ansible_check_mode
 
     - name: Running configure-show command
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
       register: lha4
       when: not ansible_check_mode
@@ -102,7 +102,7 @@
       when: not ansible_check_mode
 
     - name: Adding IP
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "{{ cmd_test1 }}"
       register: lha5
       failed_when: >
@@ -111,7 +111,7 @@
       when: not ansible_check_mode
 
     - name: Deleting resource - still running
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ test_res1 }}"
       register: lha_fail4
       failed_when: >
@@ -120,17 +120,17 @@
       when: not ansible_check_mode  # server-side validation
 
     - name: Stopping resource
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ test_res1 }}"
       when: not ansible_check_mode
 
     - name: Removing IP
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ test_res1 }}"
       when: not ansible_check_mode
 
     - name: Checking cleanup
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'status'
       register: cleanup_check
       failed_when: >

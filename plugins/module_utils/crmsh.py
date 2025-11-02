@@ -5,7 +5,7 @@ from os import geteuid
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import exit_bug, debug
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.handler import exit_bug, debug
 
 DEFAULT_BIN = '/usr/sbin/crm'
 

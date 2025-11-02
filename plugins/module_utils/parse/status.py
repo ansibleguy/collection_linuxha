@@ -2,9 +2,9 @@ from datetime import datetime
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.handler import debug
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import \
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.handler import debug
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.crmsh import crmsh_exec
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.parse.util import \
     cut_block, extract_post, extract, extract_debug
 
 DATETIME_FORMAT = '%a %b %d %H:%M:%S %Y'

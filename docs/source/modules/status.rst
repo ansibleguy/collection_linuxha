@@ -8,7 +8,7 @@ Status
 
 **STATE**: unstable
 
-**TESTS**: `Playbook <https://github.com/ansibleguy/collection_linuxha/blob/latest/tests/status.yml>`_
+**TESTS**: `Playbook <https://github.com/O-X-L/ansible-collection-linuxha/blob/latest/tests/status.yml>`_
 
 
 Definition
@@ -45,12 +45,12 @@ Examples
       become: true
       tasks:
         - name: Example
-          ansibleguy.linuxha.status:
+          oxlorg.linuxha.status:
             # subset: ['cluster', 'nodes', 'resources', 'operations']
             # time_format: '%Y-%m-%d %H:%M:%S'
 
         - name: Pulling status
-          ansibleguy.linuxha.status:
+          oxlorg.linuxha.status:
           register: lha_status
 
         - name: Showing status
@@ -248,7 +248,7 @@ Examples
         # }
 
         - name: Pulling detailed status
-          ansibleguy.linuxha.status:
+          oxlorg.linuxha.status:
             detailed: true
           register: lha_status_detailed
 

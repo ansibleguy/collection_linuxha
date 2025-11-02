@@ -12,7 +12,7 @@
 
   tasks:
     - name: Getting status
-      ansibleguy.linuxha.status:
+      oxlorg.linuxha.status:
       register: lha1
 
     - name: Checking return
@@ -29,12 +29,12 @@
           - lha1.data['nodes']['node2']['status'] == 'online'
 
     - name: Creating dummy resource
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure primitive {{ test_res }} IPaddr2 params ip=127.100.1.2 nic=lo"
       when: not ansible_check_mode
 
     - name: Getting status
-      ansibleguy.linuxha.status:
+      oxlorg.linuxha.status:
       register: lha2
       when: not ansible_check_mode
 
@@ -51,7 +51,7 @@
       when: not ansible_check_mode
 
     - name: Getting detailed status (XML)
-      ansibleguy.linuxha.status:
+      oxlorg.linuxha.status:
         detailed: true
       register: lha3
 
@@ -65,7 +65,7 @@
           - "'version' in lha3.data"
 
     - name: Cleanup dummy resource
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "{{ item }}"
         wait: true
       loop:

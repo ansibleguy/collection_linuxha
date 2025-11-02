@@ -9,7 +9,7 @@
 
   tasks:
     - name: Stopping resources (1/2)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
       register: cl_res1
@@ -24,7 +24,7 @@
         - 'ANSIBLE_TEST_3_6'
 
     - name: Deleting dummy resource (1/2)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ item }}"
         wait: true
       register: cl_res2
@@ -41,7 +41,7 @@
         - 'ANSIBLE_TEST_3_8'
 
     - name: Stopping resources (2/2)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
       register: cl_res3
@@ -60,7 +60,7 @@
         - 'ANSIBLE_TEST_3_1'
 
     - name: Deleting dummy resource (2/2)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ item }}"
         wait: true
       register: cl_res4
