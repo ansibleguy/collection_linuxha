@@ -8,7 +8,7 @@ Raw
 
 **STATE**: unstable
 
-**TESTS**: `Playbook <https://github.com/ansibleguy/collection_linuxha/blob/latest/tests/raw.yml>`_
+**TESTS**: `Playbook <https://github.com/O-X-L/ansible-collection-linuxha/blob/latest/tests/raw.yml>`_
 
 **Docs**: `crm-shell <https://crmsh.github.io/man-2.0/>`_
 
@@ -46,7 +46,7 @@ Examples
       become: true
       tasks:
         - name: Example
-          ansibleguy.linuxha.raw:
+          oxlorg.linuxha.raw:
             cmd: 'to execute'
             # fail: true  # Fail module if command fails
             # force: false
@@ -54,7 +54,7 @@ Examples
             # debug: false
 
         - name: Pulling raw running-config
-          ansibleguy.linuxha.raw:
+          oxlorg.linuxha.raw:
             cmd: 'configure show'
           register: lha_cnf
 
@@ -63,15 +63,15 @@ Examples
             var: lha_cnf.stdout_lines
 
         - name: Disabling stonith
-          ansibleguy.linuxha.raw:
+          oxlorg.linuxha.raw:
             cmd: 'configure property stonith-enabled=false'
 
         - name: Adding resource
-          ansibleguy.linuxha.raw:
+          oxlorg.linuxha.raw:
             cmd: 'configure primitive vip1 IPaddr2 params ip=10.15.12.1 nic=eno1'
 
         - name: Pulling raw status
-          ansibleguy.linuxha.raw:
+          oxlorg.linuxha.raw:
             cmd: 'status bynode'
           register: lha_status
 

@@ -8,7 +8,7 @@
 
   tasks:
     - name: Failing without root-privileges
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'status'
       register: lha_fail1
       failed_when: >
@@ -24,7 +24,7 @@
 
   tasks:
     - name: Working status-command
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'status'
       register: lha1
 
@@ -42,13 +42,13 @@
           - lha1.stderr_lines | length == 0
 
     - name: Testing force-argument
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
         force: true
       register: lha2
 
     - name: Testing debug-argument
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
         debug: true
       register: lha3
@@ -60,13 +60,13 @@
         lha3.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug configure show' (shell: False)"
 
     - name: Testing wait-argument
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
         wait: true
       register: lha4
 
     - name: Testing all arguments
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'configure show'
         wait: true
         force: true
@@ -80,7 +80,7 @@
         lha5.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --debug --force --wait configure show' (shell: False)"
 
     - name: Testing all arguments - also supplied as arguments
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: '--wait --debug configure show'
         wait: true
         force: true
@@ -94,7 +94,7 @@
         lha6.warnings[0] != "DEBUG: Executing command: '/usr/sbin/crm --force --wait --debug configure show' (shell: False)"
 
     - name: Testing auto-shell usage
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: 'status full | cat'
         debug: true
       register: lha7

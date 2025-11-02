@@ -1,18 +1,18 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (C) 2023, AnsibleGuy <guy@ansibleguy.net>
+# Copyright: (C) 2025, Rath Pascal <contact+linuxha@oxl.at>
 # GNU General Public License v3.0+ (see https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS_MAIN
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.status import status_full
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.parse.util import extract_debug
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS_MAIN
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.crmsh import crmsh_exec
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.parse.status import status_full
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.parse.util import extract_debug
 
-# DOCUMENTATION = 'https://linuxha.ansibleguy.net/modules/status.html'
-# EXAMPLES = 'https://linuxha.ansibleguy.net/modules/status.html'
+# DOCUMENTATION = 'https://ansible-linuxha.oxl.app/modules/status.html'
+# EXAMPLES = 'https://ansible-linuxha.oxl.app/modules/status.html'
 
 
 def run_module():

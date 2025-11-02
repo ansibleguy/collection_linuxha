@@ -1,3 +1,3 @@
 # Documentation
 
-Sphinx-based documentation: [https://linuxha.ansibleguy.net](https://opnsense.ansibleguy.net)
+Sphinx-based documentation: [https://ansible-linuxha.oxl.app](https://ansible-linuxha.oxl.app)

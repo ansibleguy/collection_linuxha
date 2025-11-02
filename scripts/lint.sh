@@ -19,8 +19,8 @@ echo ''
 echo 'LINTING Ansible'
 echo ''
 TMP_COL_DIR='/tmp/ansible_lint/collections'
-mkdir -p "$TMP_COL_DIR/ansible_collections/ansibleguy"
-ln -s "$(pwd)" "$TMP_COL_DIR/ansible_collections/ansibleguy/linuxha"
+mkdir -p "$TMP_COL_DIR/ansible_collections/oxlorg"
+ln -s "$(pwd)" "$TMP_COL_DIR/ansible_collections/oxlorg/linuxha"
 ANSIBLE_COLLECTIONS_PATH="$TMP_COL_DIR" ansible-lint -c .ansible-lint.yml
 rm -rf "$TMP_COL_DIR"
 

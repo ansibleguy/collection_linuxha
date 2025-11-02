@@ -4,13 +4,13 @@ requires_ansible: ">=2.10"
 
 action_groups:
   resource:
-    - ansibleguy.linuxha.primitive
+    - oxlorg.linuxha.primitive
   all:
     - metadata:
         extend_group:
-          - ansibleguy.linuxha.resource
+          - oxlorg.linuxha.resource
 
 # plugin_routing:
 #    modules:
 #     placeholder:
-#       redirect: ansibleguy.linuxha.primitive
+#       redirect: oxlorg.linuxha.primitive

@@ -1,16 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# Copyright: (C) 2023, AnsibleGuy <guy@ansibleguy.net>
+# Copyright: (C) 2025, Rath Pascal <contact+linuxha@oxl.at>
 # GNU General Public License v3.0+ (see https://www.gnu.org/licenses/gpl-3.0.txt)
 
 from ansible.module_utils.basic import AnsibleModule
 
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS
-from ansible_collections.ansibleguy.linuxha.plugins.module_utils.crmsh import crmsh_exec
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.defaults import LHA_MOD_ARGS
+from ansible_collections.oxlorg.linuxha.plugins.module_utils.crmsh import crmsh_exec
 
-# DOCUMENTATION = 'https://linuxha.ansibleguy.net/modules/raw.html'
-# EXAMPLES = 'https://linuxha.ansibleguy.net/modules/raw.html'
+# DOCUMENTATION = 'https://ansible-linuxha.oxl.app/modules/raw.html'
+# EXAMPLES = 'https://ansible-linuxha.oxl.app/modules/raw.html'
 
 
 def run_module():

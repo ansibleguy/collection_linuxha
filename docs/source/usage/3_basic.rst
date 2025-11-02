@@ -28,7 +28,7 @@ You can achieve this easily by either:
         become: true
         tasks:
           - name: Run once per cluster
-            ansibleguy.linuxha.raw:
+            oxlorg.linuxha.raw:
               cmd: 'to execute'
             run_once: true
 
@@ -70,5 +70,5 @@ You can achieve this easily by either:
         become: true
         tasks:
           - name: Run once per cluster
-            ansibleguy.linuxha.raw:
+            oxlorg.linuxha.raw:
               cmd: 'to execute'

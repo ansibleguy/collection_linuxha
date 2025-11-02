@@ -1,11 +1,11 @@
 ---
 
-namespace: 'ansibleguy'
+namespace: 'oxlorg'
 name: 'linuxha'
-version: 1.0.2
+version: 1.0.3
 readme: 'README.md'
 authors:
-  - 'AnsibleGuy <guy@ansibleguy.net>'
+  - 'OXL IT Services <contact+linuxha@oxl.at>'
 description: "Ansible Modules to manage LinuxHA/CoroSync"
 license_file: 'LICENSE.txt'
 tags:
@@ -21,8 +21,12 @@ tags:
   - 'pacemaker'
   - 'failover'
 dependencies: {}
-repository: 'https://github.com/ansibleguy/collection_linuxha'
-documentation: 'https://linuxha.ansibleguy.net'
-homepage: 'https://ansibleguy.net'
-issues: 'https://github.com/ansibleguy/collection_linuxha/issues'
-build_ignore: []
+repository: 'https://github.com/O-X-L/ansible-collection/linuxha'
+documentation: 'https://ansible-linuxha.oxl.app'
+homepage: 'https://www.OXL.at'
+issues: 'https://github.com/O-X-L/ansible-collection//issues'
+build_ignore: [
+  '*_pytest.py', '*_testdata.py', '*pytest_cache', '*/_tmpl.py',
+  '.**', 'pytest.ini', 'requirements_*.txt',
+  'docs**', 'scripts**', 'venv**', 'Makefile', 'legacy**',
+]

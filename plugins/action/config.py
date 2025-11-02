@@ -6,10 +6,13 @@ from ansible.plugins.action import ActionBase
 
 
 def ensure_list(data: (list, dict, str)) -> list:
-    if not isinstance(data, list):
-        return [data]
+    if data is None:
+        return []
 
-    return data
+    if isinstance(data, list):
+        return data
+
+    return [data]
 
 
 def type_correction(data: dict) -> dict:
@@ -160,7 +163,7 @@ class ActionModule(ActionBase):
     def run(self, tmp=None, task_vars=None):
         super().run(tmp, task_vars)
         module_output = self._execute_module(
-            module_name='ansibleguy.linuxha.config',
+            module_name='oxlorg.linuxha.config',
             module_args=self._task.args,
             task_vars=task_vars,
             tmp=tmp

@@ -13,7 +13,7 @@
 
   tasks:
     - name: Getting config
-      ansibleguy.linuxha.config:
+      oxlorg.linuxha.config:
       register: lha1
 
     - name: Checking return
@@ -24,7 +24,7 @@
           - lha1.data['nodes'] | length == 2
 
     - name: Creating dummy resources and constraints
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure {{ item }}"
       when: not ansible_check_mode
       loop:
@@ -40,7 +40,7 @@
         - 'location ANSIBLE_TEST_3_8 ANSIBLE_TEST_3_3 role=Started inf: node2'
 
     - name: Getting config
-      ansibleguy.linuxha.config:
+      oxlorg.linuxha.config:
       register: lha2
       when: not ansible_check_mode
 
@@ -65,7 +65,7 @@
       when: not ansible_check_mode
 
     - name: Getting config subset
-      ansibleguy.linuxha.config:
+      oxlorg.linuxha.config:
         subset: ['properties', 'primitives']
       register: lha3
       when: not ansible_check_mode
@@ -84,7 +84,7 @@
       when: not ansible_check_mode
 
     - name: Getting raw config
-      ansibleguy.linuxha.config:
+      oxlorg.linuxha.config:
         raw: true
       register: lha4
       when: not ansible_check_mode
@@ -106,7 +106,7 @@
       when: not ansible_check_mode
 
     - name: Stopping dummy resources (dependencies)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
       loop:
@@ -115,7 +115,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup dummy resources (dependencies)
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ item }}"
         wait: true
       loop:
@@ -126,7 +126,7 @@
       when: not ansible_check_mode
 
     - name: Stopping dummy resources
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "resource stop {{ item }}"
         wait: true
       loop:
@@ -137,7 +137,7 @@
       when: not ansible_check_mode
 
     - name: Cleanup dummy resource
-      ansibleguy.linuxha.raw:
+      oxlorg.linuxha.raw:
         cmd: "configure delete {{ item }}"
         wait: true
       loop:

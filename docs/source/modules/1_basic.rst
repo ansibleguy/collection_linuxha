@@ -6,7 +6,7 @@
 1 - Basic module arguments
 ==========================
 
-**TESTS**: `Playbook <https://github.com/ansibleguy/collection_linuxha/blob/latest/tests/base.yml>`_
+**TESTS**: `Playbook <https://github.com/O-X-L/ansible-collection-linuxha/blob/latest/tests/base.yml>`_
 
 All modules
 ***********
